@@ -1,2 +1,5 @@
 venv/
 yolov8n.pt
+datasets/
+dataset/
+yolov8n-cls.pt
