@@ -3,3 +3,5 @@ yolov8n.pt
 datasets/
 dataset/
 yolov8n-cls.pt
+runs/
+test-images/

@@ -52,7 +52,9 @@ class GarbageClassifier:
                 return _torch_load(*args, **kwargs)
             torch.load = unsafe_torch_load
 
-            self.model = YOLO("yolov8n-cls.pt")  
+            # self.model = YOLO("yolov8n-cls.pt")  
+            # self.model = YOLO("runs/classify/train7/weights/best.pt")  
+            self.model = YOLO("best.pt")  
             logger.info("Modelo YOLO carregado com sucesso")
         except Exception as e:
             logger.error(f"Erro ao carregar modelo YOLO: {e}")
@@ -107,26 +109,27 @@ async def classify_endpoint(file: UploadFile = File(...)):
 
         result = classifier.classify(image)
 
-        object_to_material = {
-            "water_bottle": "plástico",
-            "soda_can": "metal",
-            "wine_glass": "vidro",
-            "plastic_bag": "plástico",
-            "cardboard_box": "papel",
-            "newspaper": "papel",
-            "tshirt": "tecido",
-            "shoe": "tecido",
-            "banana": "orgânico",
-            "apple": "orgânico",
-            "battery": "químico",
-            "aluminum_can": "metal",
-            "glass_jar": "vidro",
-            "milk_carton": "papel/plástico",
-            "cereal_box": "papel",
-        }
+        # object_to_material = {
+        #     "water_bottle": "plástico",
+        #     "soda_can": "metal",
+        #     "wine_glass": "vidro",
+        #     "plastic_bag": "plástico",
+        #     "cardboard_box": "papel",
+        #     "newspaper": "papel",
+        #     "tshirt": "tecido",
+        #     "shoe": "tecido",
+        #     "banana": "orgânico",
+        #     "apple": "orgânico",
+        #     "battery": "químico",
+        #     "aluminum_can": "metal",
+        #     "glass_jar": "vidro",
+        #     "milk_carton": "papel/plástico",
+        #     "cereal_box": "papel",
+        # }
         response = ApiResponse(
             success=True,
-            message=object_to_material.get(result['class_name'], 'Desconhecido'),
+            message=result['class_name'],
+            # message=object_to_material.get(result['class_name'], 'Desconhecido'),
             result=ClassificationResult(class_name=result['class_name'], confidence=result['confidence']),
             processing_time=result['processing_time'],
             image_dimensions=[w, h]

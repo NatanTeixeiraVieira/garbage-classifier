@@ -171,3 +171,7 @@ python3.10 -m venv venv
 
 source venv/bin/activate
 python3.10 main.py
+
+## 8 Treinar a IA com o dataset
+
+yolo classify train model=yolov8n-cls.pt data=dataset/train epochs=2 imgsz=224
