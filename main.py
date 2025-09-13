@@ -109,28 +109,27 @@ async def classify_endpoint(file: UploadFile = File(...)):
 
         result = classifier.classify(image)
 
-        # object_to_material = {
-        #     "water_bottle": "plástico",
-        #     "soda_can": "metal",
-        #     "wine_glass": "vidro",
-        #     "plastic_bag": "plástico",
-        #     "cardboard_box": "papel",
-        #     "newspaper": "papel",
-        #     "tshirt": "tecido",
-        #     "shoe": "tecido",
-        #     "banana": "orgânico",
-        #     "apple": "orgânico",
-        #     "battery": "químico",
-        #     "aluminum_can": "metal",
-        #     "glass_jar": "vidro",
-        #     "milk_carton": "papel/plástico",
-        #     "cereal_box": "papel",
-        # }
+        object_to_material = {
+            "battery": "Bateria",
+            "biological": "Biológico",
+            "brown-glass": "Vidro",
+            "cardboard": "Caixa de papelão",
+            "clothes": "Roupas",
+            "green-glass": "Vidro",
+            "metal": "Metal",
+            "paper": "Papel",
+            "plastic": "Plástico",
+            "shoes": "Sapatos",
+            "trash": "Resíduos",
+            "white-glass": "Vidro",
+            "glass_jar": "vidro",
+            "milk_carton": "papel/plástico",
+            "cereal_box": "papel",
+        }
         response = ApiResponse(
             success=True,
-            message=result['class_name'],
-            # message=object_to_material.get(result['class_name'], 'Desconhecido'),
-            result=ClassificationResult(class_name=result['class_name'], confidence=result['confidence']),
+            message=object_to_material.get(result['class_name']),
+            result=ClassificationResult(class_name=object_to_material.get(result['class_name'], result['class_name']), confidence=result['confidence']),
             processing_time=result['processing_time'],
             image_dimensions=[w, h]
         )
