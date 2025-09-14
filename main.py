@@ -128,7 +128,7 @@ async def classify_endpoint(file: UploadFile = File(...)):
         }
         response = ApiResponse(
             success=True,
-            message=object_to_material.get(result['class_name']),
+            message=result['class_name'],
             result=ClassificationResult(class_name=object_to_material.get(result['class_name'], result['class_name']), confidence=result['confidence']),
             processing_time=result['processing_time'],
             image_dimensions=[w, h]
