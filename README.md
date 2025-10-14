@@ -52,7 +52,7 @@ curl http://localhost:8000/health
 curl -X POST "http://localhost:8000/classify" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "file=@metal.jpg"
 ```
 
-## Errors
+## Erros
 
 This environment is externally managed
 ╰─> To install Python packages system-wide, try apt install
@@ -69,3 +69,9 @@ source venv/bin/activate
 ### Rodar o projeto
 
 python main.py
+
+## Dataset
+
+- Dataset: Garbage Classification (12 classes) ENHANCED (Kaggle)
+- Link: https://www.kaggle.com/datasets/huberthamelin/garbage-classification-labels-corrections
+- Para rodar, baixar o dataset e deixar as 12 classes dentro do diretório dataset/train, na raíz do projeto
