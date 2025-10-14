@@ -88,6 +88,39 @@ def load_image_from_upload(file: UploadFile) -> np.ndarray:
     except Exception:
         raise HTTPException(status_code=400, detail="Erro ao processar imagem. Verifique se o arquivo é válido.")
 
+
+def heuristic_adjustment(result):
+    class_name = result["class_name"]
+    confidence = result["confidence"]
+
+    if confidence < 0.5:
+        return {"class_name": "Indefinido", "confidence": confidence}
+
+    if class_name == "trash":
+        result["class_name"] = "resíduo_misto"
+
+    return result
+
+
+def random_adjustment(result: dict) -> dict:
+    result["confidence"] = max(0.0, min(1.0, result["confidence"] + random.uniform(-0.05, 0.05)))
+
+    similar_classes = {
+        "plastic": "paper",
+        "paper": "plastic",
+        "metal": "trash",
+        "glass": "white-glass",
+        "trash": "metal"
+    }
+    if random.random() < 0.05 and result["class_name"] in similar_classes:
+        result["class_name"] = similar_classes[result["class_name"]]
+
+    else:
+        result = heuristic_adjustment(result)
+
+    return result
+
+
 @app.get("/")
 async def root():
     return {"message": "Garbage Classification API está funcionando!", "status": "online"}
@@ -108,6 +141,9 @@ async def classify_endpoint(file: UploadFile = File(...)):
         h, w = image.shape[:2]
 
         result = classifier.classify(image)
+
+        # result_adjusted = random_adjustment(result)
+        # print(result_adjusted)
 
         object_to_material = {
             "battery": "Bateria",
