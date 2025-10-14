@@ -75,3 +75,12 @@ python main.py
 - Dataset: Garbage Classification (12 classes) ENHANCED (Kaggle)
 - Link: https://www.kaggle.com/datasets/huberthamelin/garbage-classification-labels-corrections
 - Para rodar, baixar o dataset e deixar as 12 classes dentro do diretório dataset/train, na raíz do projeto
+
+## Medidas para prevenção de erros ao rodar
+
+- Em caso de problemas ao rodar o projeto:
+
+1. Instalar e configurar o Docker
+2. Baixar a imagem: docker pull natanteixeiravieira/garbage-classifier-api
+3. Rodar: docker run -itd -p 8000:8000 --name garbage-classifier-api natanteixeiravieira/garbage-classifier-api
+   Com isso, o projeto roda na porta 8000 normalmente
