@@ -61,14 +61,7 @@ source venv/bin/activate
 
 ## Instale as dependências
 
-pip install fastapi==0.104.1
-pip install uvicorn==0.24.0
-pip install python-multipart==0.0.6
-pip install ultralytics==8.0.196
-pip install opencv-python==4.8.1.78
-pip install Pillow==10.0.1
-pip install numpy==1.24.3
-pip install pydantic==2.4.2
+pip install --no-cache-dir -r requirements.txt
 
 ## 3. Arquivos principais do projeto
 
@@ -119,11 +112,10 @@ curl http://localhost:8000/health
 
 ## Teste de upload (caminho da sua imagem)
 
+'imagem.jpg' é o nome da imagem. Trocar pelo caminho da imagem de teste
+
 ```
-curl.exe -X POST "http://localhost:8000/detect" `
--H "accept: application/json" `
--H "Content-Type: multipart/form-data" `
--F "file=@imagem.jpg"
+curl -X POST "http://localhost:8000/classify" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "file=@imagem.jpg"
 ```
 
 ## 6 Errors
