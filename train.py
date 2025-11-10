@@ -4,14 +4,11 @@ import shutil
 from ultralytics import YOLO
 
 
-# Caminho do dataset
 dataset_dir = "dataset/train"
 balanced_dir = "dataset/balanced/train"
 
-# Cria nova pasta para não alterar o original
 os.makedirs(balanced_dir, exist_ok=True)
 
-# Mapeia classes e suas imagens
 class_images = {}
 for class_name in os.listdir(dataset_dir):
     class_path = os.path.join(dataset_dir, class_name)
@@ -24,11 +21,9 @@ for class_name in os.listdir(dataset_dir):
         if images:
             class_images[class_name] = images
 
-# Encontra o número mínimo de imagens
 min_count = min(len(imgs) for imgs in class_images.values())
 print(f"Menor classe tem {min_count} imagens.")
 
-# Para cada classe, sorteia apenas 'min_count' imagens e copia
 for class_name, images in class_images.items():
     selected = random.sample(images, min_count)
     dest_dir = os.path.join(balanced_dir, class_name)
@@ -39,11 +34,10 @@ for class_name, images in class_images.items():
 
 print("\nDataset balanceado criado em:", balanced_dir)
 
-
 model = YOLO("yolo11n-cls.pt")
 
 model.train(
     data=balanced_dir, 
-    epochs=100,            
+    epochs=1,            
     imgsz=224             
 )

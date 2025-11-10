@@ -1,11 +1,20 @@
 # Sistema de Detecção de Lixo usando YOLO
 
+# Rodar o projeoto (Recomendado)
+
+- Instalar o docker
+- Rodar
+
+```bash
+  docker pull natanteixeiravieira/garbage-classifier-api:v2.0.0
+  docker run -itd -p 8000:8000 --name garbage-classifier-api natanteixeiravieira/garbage-classifier-api:v2.0.0
+```
+
 # Configuração do Backend Python
 
 ## 1. Pré-requisitos
 
 - Python 3.9+ instalado
-- Pelo menos 4GB de RAM disponível
 - Conexão com internet (para download do modelo YOLO)
 
 ## 2. Crie um ambiente virtual
@@ -23,14 +32,7 @@ python -m venv venv
 
 ## Instale as dependências
 
-- pip install fastapi==0.104.1
-- pip install uvicorn==0.24.0
-- pip install python-multipart==0.0.6
-- pip install ultralytics==8.0.196
-- pip install opencv-python==4.8.1.78
-- pip install Pillow==10.0.1
-- pip install numpy==1.24.3
-- pip install pydantic==2.4.2
+pip install --no-cache-dir -r requirements.txt
 
 # Sistema de Detecção de Lixo usando YOLO
 
