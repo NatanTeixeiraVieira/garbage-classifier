@@ -38,6 +38,6 @@ model = YOLO("yolo11n-cls.pt")
 
 model.train(
     data=balanced_dir, 
-    epochs=1,            
+    epochs=100,            
     imgsz=224             
 )
